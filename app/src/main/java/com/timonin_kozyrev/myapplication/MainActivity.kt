@@ -25,15 +25,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.timonin_kozyrev.myapplication.data.Student
 import com.timonin_kozyrev.myapplication.data.students
-import com.timonin_kozyrev.myapplication.ui.theme.Student_Material_Design_Timonin_KozyrevTheme
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import com.timonin_kozyrev.myapplication.ui.theme.Student_Material_DesignTheme
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Student_Material_Design_Timonin_KozyrevTheme{
+            Student_Material_DesignTheme{
                    Surface(
                        modifier = Modifier.fillMaxSize()
                    ) {
@@ -85,6 +87,7 @@ fun StudentItem(
     modifier: Modifier = Modifier
 
 ){
+    Card(modifier = modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -93,20 +96,25 @@ fun StudentItem(
         StudentIcon(student.imageResourceId)
         StudentInformation(student.name, student.age)
 
+     }
     }
 }
 @Composable
 fun StudentApp(){
     LazyColumn{
         items(students){
-            StudentItem(student = it)
+            StudentItem(
+                student = it,
+                modifier = Modifier
+                    .padding(dimensionResource(R.dimen.padding_small))
+            )
         }
     }
 }
 @Preview
 @Composable
 fun StudentPreview() {
-    Student_Material_Design_Timonin_KozyrevTheme(darkTheme = false) {
+    Student_Material_DesignTheme(darkTheme = false) {
         StudentApp()
     }
 }
